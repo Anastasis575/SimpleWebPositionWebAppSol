@@ -29,10 +29,10 @@ namespace SimpleWebPositionApp.Models {
         public decimal Transferrable {
             get {
                 if (Balance68 - Reserved68 < CapacityCentral - BalanceCentral) {
-                    return Balance68 - Reserved68;
+                    return Math.Max(Balance68 - Reserved68,0);
                 }
                 else {
-                    return CapacityCentral - BalanceCentral;
+                    return Math.Max(CapacityCentral - BalanceCentral,0);
                 }
             }
         }

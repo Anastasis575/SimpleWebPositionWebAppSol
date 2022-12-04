@@ -27,20 +27,20 @@ namespace SimpleWebPositionApp.Controllers
         }
 
         // GET: ProductFiles/Search
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<IActionResult> Search(SearchBar bar) {
             var top_code = bar.Code;
             if (top_code == null) {
-                return RedirectToAction("error", "productfiles", new { errorType = "Δεν δόθηκε κωδικός προς αναζήτηση." });
+                return RedirectToAction("error", "product64", new { errorType = "Δεν δόθηκε κωδικός προς αναζήτηση." });
             }
 
             var code = await _context.Codes
                 .FirstOrDefaultAsync(m => m.TopCode == top_code || m.Barcode == top_code || ((top_code.Length == 3) && m.TopCode == "02.026.0" + top_code) || (top_code.Length == 9 && m.TopCode == modify(top_code)));
             if (code == null)
-                return RedirectToAction("error", "productfiles", new { errorType = "Δεν βρέθηκε εγγραφή." });
+                return RedirectToAction("error", "product64", new { errorType = "Δεν βρέθηκε εγγραφή." });
             var productFile = await _context.Products64.SingleOrDefaultAsync(m => m.TopCode == code.TopCode);
 
-            return productFile == null ? RedirectToAction("error", "productfiles", new { errorType = "Δεν Βρέθηκε εγγραφή." }) : View(productFile);
+            return productFile == null ? RedirectToAction("error", "product64", new { errorType = "Δεν Βρέθηκε εγγραφή." }) : View(productFile);
         }
 
         public static string modify(string code) {
@@ -52,7 +52,7 @@ namespace SimpleWebPositionApp.Controllers
             return builder1.ToString();
         }
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult Error([FromQuery(Name = "errorType")] string type) => View(new ErrorClass { Message = type });
 
 

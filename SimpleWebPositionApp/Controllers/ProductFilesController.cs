@@ -18,13 +18,13 @@ namespace SimpleWebPositionApp.Controllers {
         // GET: ProductFiles
         public IActionResult Index() => View();
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IActionResult Upload() {
             return View();
         }
 
         // POST: ProductFiles/Upload
-        [HttpPost("[action]")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadAsync(UploadFile uf) {
             if (uf == null) {
@@ -57,6 +57,7 @@ namespace SimpleWebPositionApp.Controllers {
                         });
                     }
                     datarows = reader.Tables["ΤΡΟΦΟΔΟΣΙΑ"];
+                    _logger.LogInformation(uf.SelWarehouse);
                     if (datarows != null) {
                         if (uf.SelWarehouse == "64") {
                         HashSet<Product64> products = new();
@@ -68,7 +69,7 @@ namespace SimpleWebPositionApp.Controllers {
                                     {
                                         TopCode = row["GXCode"].ToString(),
                                         Description = row["GXDESCRIPTION"].ToString(),
-                                        Position68 = row["ΘΕΣΗ ΑΛΚΜ 68"].ToString(),
+                                        Position68 = row["ΘΕΣΗ ΑΛΚΜ 64"].ToString(),
                                         PositionCentral = row["ΘΕΣΗ ΚΕΝΤΡΙΚΟΥ"].ToString(),
                                         Reserved68 = Int32.TryParse(row["ΔΕΣΜ.ΤΡΟΦΟΔΟΣΙΑΣ"].ToString(), out i) ? Int32.Parse(row["ΔΕΣΜ.ΤΡΟΦΟΔΟΣΙΑΣ"].ToString()) : 0,
                                         Balance68 = Int32.TryParse(row["ΥΠΟΛΟΙΠΟ ΤΡΟΦΟΔΟΣΙΑΣ"].ToString(), out i) ? Int32.Parse(row["ΥΠΟΛΟΙΠΟ ΤΡΟΦΟΔΟΣΙΑΣ"].ToString()) : 0,
@@ -125,22 +126,22 @@ namespace SimpleWebPositionApp.Controllers {
                     }
                 }
             }
-
-            return RedirectToAction("index", "productfiles");
+            string controller = uf.SelWarehouse == "68" ? "product68" : "product64";
+            return RedirectToAction("index", controller);
 
         }
 
        
-        [HttpGet("[action]")]
+        [HttpGet]
         public IActionResult Login() => View();
 
-        [HttpPost("/Login")]
+        [HttpPost]
         public IActionResult Login(PasswordDTO dto) {
             return _context.Login.Where(login => dto.Pass == login.Pass).SingleOrDefault() == null ? RedirectToAction("error", "productfiles", new { errorType = "Δεν μπορέσατε να ταυτοποιηθείτε." }) : RedirectToAction("upload", "productfiles");
         }
 
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult Error([FromQuery(Name = "errorType")] string type) => View(new ErrorClass { Message = type });
 
     }
