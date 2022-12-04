@@ -27,7 +27,7 @@ namespace SimpleWebPositionApp.Controllers
         }
 
         // GET: ProductFiles/Search
-        [HttpPost("/Search")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Search(SearchBar bar) {
             var top_code = bar.Code;
             if (top_code == null) {
@@ -38,7 +38,7 @@ namespace SimpleWebPositionApp.Controllers
                 .FirstOrDefaultAsync(m => m.TopCode == top_code || m.Barcode == top_code || ((top_code.Length == 3) && m.TopCode == "02.026.0" + top_code) || (top_code.Length == 9 && m.TopCode == modify(top_code)));
             if (code == null)
                 return RedirectToAction("error", "productfiles", new { errorType = "Δεν βρέθηκε εγγραφή." });
-            var productFile = await _context.Products.SingleOrDefaultAsync(m => m.TopCode == code.TopCode);
+            var productFile = await _context.Products64.SingleOrDefaultAsync(m => m.TopCode == code.TopCode);
 
             return productFile == null ? RedirectToAction("error", "productfiles", new { errorType = "Δεν Βρέθηκε εγγραφή." }) : View(productFile);
         }

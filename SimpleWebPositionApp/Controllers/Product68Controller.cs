@@ -1,8 +1,8 @@
 ﻿using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleWebPositionApp.Data;
 using SimpleWebPositionApp.Models;
-using System.Data;
 using System.Text;
 
 namespace SimpleWebPositionApp.Controllers {
@@ -31,7 +31,7 @@ namespace SimpleWebPositionApp.Controllers {
                 .FirstOrDefaultAsync(m => m.TopCode == top_code || m.Barcode == top_code || ((top_code.Length == 3) && m.TopCode == "02.026.0" + top_code) || (top_code.Length == 9 && m.TopCode == modify(top_code)));
             if (code == null)
                 return RedirectToAction("error", "productfiles", new { errorType = "Δεν βρέθηκε εγγραφή." });
-            var productFile = await _context.Products.SingleOrDefaultAsync(m => m.TopCode == code.TopCode);
+            var productFile = await _context.Products68.SingleOrDefaultAsync(m => m.TopCode == code.TopCode);
 
             return productFile == null ? RedirectToAction("error", "productfiles", new { errorType = "Δεν Βρέθηκε εγγραφή." }) : View(productFile);
         }

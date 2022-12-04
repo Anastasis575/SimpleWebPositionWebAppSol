@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace SimpleWebPositionApp.Models {
-    public record ProductItem {
+    public record Product68 {
 
         [Key]
         [Display(Name ="Κωδικός Είδους")]

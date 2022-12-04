@@ -3,7 +3,9 @@ using SimpleWebPositionApp.Models;
 
 namespace SimpleWebPositionApp.Data {
     public class ProductDbContext : DbContext {
-        public DbSet<ProductItem> Products { get; set; }
+        public DbSet<Product68> Products68 { get; set; }
+
+        public DbSet<Product64> Products64 { get; set; }
 
         public DbSet<CodeItem> Codes { get; set; }
 

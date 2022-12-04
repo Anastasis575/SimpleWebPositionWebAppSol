@@ -2,11 +2,11 @@
 @{
     ViewData["Title"] = "Αρχική Σελίδα";
 }
-<h4>Aναζήτηση Προϊόντος</h4>
+<h4>Aναζήτηση Προϊόντος στο 64</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Search" method="post">
+        <form asp-action="Search"asp-controller="Product64" method="post">
             <div class="form-group">
                 <label asp-for="Code" class="control-label">Aναζήτηση</label>
                 <input asp-for="Code" class="form-control" />
