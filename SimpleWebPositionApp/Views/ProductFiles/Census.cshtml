@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SimpleWebPositionApp.Models.Dto.CensusItem>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TopCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scanned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logistics)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Device)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scanned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logistics)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Device)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -4,6 +4,7 @@ using ExcelDataReader;
 using SimpleWebPositionApp.Data;
 using System.Data;
 using SimpleWebPositionApp.Models;
+using SimpleWebPositionApp.Models.Dto;
 
 namespace SimpleWebPositionApp.Controllers {
     public class ProductFilesController : Controller {
@@ -25,7 +26,6 @@ namespace SimpleWebPositionApp.Controllers {
 
         // POST: ProductFiles/Upload
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadAsync(UploadFile uf) {
             if (uf == null) {
                 return RedirectToAction("error", "productfiles", new { errorType = "Δεν επιλέγθηκε αρχείο." });
@@ -131,6 +131,10 @@ namespace SimpleWebPositionApp.Controllers {
 
         }
 
+        [HttpGet]
+        public IActionResult LoginInfo() {
+            return Ok(_context.Login.ToList());
+        }
        
         [HttpGet]
         public IActionResult Login() => View();
@@ -143,6 +147,23 @@ namespace SimpleWebPositionApp.Controllers {
 
         [HttpGet]
         public IActionResult Error([FromQuery(Name = "errorType")] string type) => View(new ErrorClass { Message = type });
+
+
+        [HttpPost]
+        public async Task<ActionResult<Boolean>> Census(List<CensusItem> ecxelDTO) {
+            _logger.LogInformation(""+ecxelDTO.Count);
+            await _context.Census.AddRangeAsync(ecxelDTO);
+            _logger.LogInformation("Done!!!");
+            return Ok(true);
+        }
+
+
+        [HttpGet]
+        public IActionResult Census() {
+            
+            return View(_context.Census);
+        }
+
 
     }
 }

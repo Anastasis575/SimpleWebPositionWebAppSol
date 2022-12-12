@@ -30,6 +30,32 @@ namespace SimpleWebPositionApp.Migrations
                     b.ToTable("Codes");
                 });
 
+            modelBuilder.Entity("SimpleWebPositionApp.Models.Dto.CensusItem", b =>
+                {
+                    b.Property<string>("TopCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Device")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Diff")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Logistics")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Scanned")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TopCode");
+
+                    b.ToTable("Census");
+                });
+
             modelBuilder.Entity("SimpleWebPositionApp.Models.Login", b =>
                 {
                     b.Property<int>("Login_id")

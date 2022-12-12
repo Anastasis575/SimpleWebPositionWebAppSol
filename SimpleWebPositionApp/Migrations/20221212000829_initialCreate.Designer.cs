@@ -10,8 +10,8 @@ using SimpleWebPositionApp.Data;
 namespace SimpleWebPositionApp.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20221130170659_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221212000829_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,32 @@ namespace SimpleWebPositionApp.Migrations
                     b.ToTable("Codes");
                 });
 
+            modelBuilder.Entity("SimpleWebPositionApp.Models.Dto.CensusItem", b =>
+                {
+                    b.Property<string>("TopCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Device")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Diff")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Logistics")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Scanned")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TopCode");
+
+                    b.ToTable("Census");
+                });
+
             modelBuilder.Entity("SimpleWebPositionApp.Models.Login", b =>
                 {
                     b.Property<int>("Login_id")
@@ -47,12 +73,15 @@ namespace SimpleWebPositionApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("mode")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Login_id");
 
                     b.ToTable("Login");
                 });
 
-            modelBuilder.Entity("SimpleWebPositionApp.Models.ProductItem", b =>
+            modelBuilder.Entity("SimpleWebPositionApp.Models.Product64", b =>
                 {
                     b.Property<string>("TopCode")
                         .HasColumnType("TEXT");
@@ -89,7 +118,47 @@ namespace SimpleWebPositionApp.Migrations
 
                     b.HasKey("TopCode");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products64");
+                });
+
+            modelBuilder.Entity("SimpleWebPositionApp.Models.Product68", b =>
+                {
+                    b.Property<string>("TopCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Balance68")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("BalanceCentral")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CapacityCentral")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Monthly")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Position68")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PositionCentral")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Reserved68")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TransactionLine")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TopCode");
+
+                    b.ToTable("Products68");
                 });
 
             modelBuilder.Entity("SimpleWebPositionApp.Models.SearchBar", b =>

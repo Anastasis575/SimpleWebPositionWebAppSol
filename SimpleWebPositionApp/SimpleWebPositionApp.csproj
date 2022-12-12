@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Dto\" />
     <Folder Include="temp\" />
   </ItemGroup>
 
