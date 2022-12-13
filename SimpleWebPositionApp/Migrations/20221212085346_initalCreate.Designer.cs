@@ -10,8 +10,8 @@ using SimpleWebPositionApp.Data;
 namespace SimpleWebPositionApp.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20221212000829_initialCreate")]
-    partial class initialCreate
+    [Migration("20221212085346_initalCreate")]
+    partial class initalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -14,10 +14,15 @@ namespace SimpleWebPositionApp.Data {
 
         public DbSet<CensusItem> Census { get; set; }
 
-        public ProductDbContext(DbContextOptions<ProductDbContext> options):base(options) {
+        public DbSet<SearchBar> SearchBar { get; set; }
 
+        public ProductDbContext(DbContextOptions<ProductDbContext> options):base(options) {
+            
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<CensusItem>().HasKey(nameof(CensusItem.TopCode), nameof(CensusItem.Device));
         }
 
-        public DbSet<SimpleWebPositionApp.Models.SearchBar> SearchBar { get; set; }
+
     }
 }

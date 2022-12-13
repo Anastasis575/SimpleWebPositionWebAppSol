@@ -5,8 +5,11 @@ using SimpleWebPositionApp.Data;
 using System.Data;
 using SimpleWebPositionApp.Models;
 using SimpleWebPositionApp.Models.Dto;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleWebPositionApp.Controllers {
+    [ApiController]
+    [Route("[controller]/[action]")]
     public class ProductFilesController : Controller {
         private readonly ProductDbContext _context;
         private readonly ILogger<ProductFilesController> _logger;
@@ -17,6 +20,7 @@ namespace SimpleWebPositionApp.Controllers {
         }
 
         // GET: ProductFiles
+        [HttpGet]
         public IActionResult Index() => View();
 
         [HttpGet]
@@ -132,15 +136,12 @@ namespace SimpleWebPositionApp.Controllers {
         }
 
         [HttpGet]
-        public IActionResult LoginInfo() {
-            return Ok(_context.Login.ToList());
-        }
-       
-        [HttpGet]
         public IActionResult Login() => View();
 
         [HttpPost]
-        public IActionResult Login(PasswordDTO dto) {
+        public IActionResult Login([FromForm] PasswordDTO dto) {
+            _logger.LogInformation(message: $"{_context.Login.Where(login => dto.Pass == login.Pass).SingleOrDefault()}");
+            _logger.LogInformation(dto.Pass);
             return _context.Login.Where(login => dto.Pass == login.Pass).SingleOrDefault() == null ? RedirectToAction("error", "productfiles", new { errorType = "Δεν μπορέσατε να ταυτοποιηθείτε." }) : RedirectToAction("upload", "productfiles");
         }
 
@@ -150,18 +151,17 @@ namespace SimpleWebPositionApp.Controllers {
 
 
         [HttpPost]
-        public async Task<ActionResult<Boolean>> Census(List<CensusItem> ecxelDTO) {
-            _logger.LogInformation(""+ecxelDTO.Count);
-            await _context.Census.AddRangeAsync(ecxelDTO);
-            _logger.LogInformation("Done!!!");
+        public async Task<ActionResult<Boolean>> Census(List<CensusItem> excelDTO) {
+            await _context.Census.AddRangeAsync(excelDTO);
+            _context.SaveChanges();
             return Ok(true);
         }
 
 
         [HttpGet]
         public IActionResult Census() {
-            
-            return View(_context.Census);
+            _logger.LogInformation($"{_context.Census.Count()}");
+            return View(_context.Census.ToList());
         }
 
 
