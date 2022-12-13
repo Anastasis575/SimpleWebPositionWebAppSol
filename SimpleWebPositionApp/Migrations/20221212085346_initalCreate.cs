@@ -5,7 +5,7 @@
 namespace SimpleWebPositionApp.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class initalCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

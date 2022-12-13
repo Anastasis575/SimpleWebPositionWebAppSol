@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /SimpleWebPositionApp/Data/app.db
 /SimpleWebPositionApp/Data/app.db-shm
 /SimpleWebPositionApp/Data/app.db-wal
+/Data/app.db
